@@ -6,7 +6,7 @@
   <title>Registro</title>
 </head>
 <body>
-<h1 th:if="${alerta}" th:text="${alerta}"></h1>
+<h3 th:if="${alerta}" th:text="${alerta}" style="color: red"></h3>
 <div class="mt-5">
 <form th:action="@{/index/registro}" th:object="${alumno}" method="post">
   <div class="container d-flex flex-row justify-content-around align-items-center">
@@ -15,11 +15,14 @@
       <input type="text" name="id" th:field="*{dni}" placeholder="Introduce el Dni"/>
     </div>
     <div class="fieldTextName d-flex flex-column text-center m-0">
-      <p class="m-0 p-0">Dni</p>
-      <input type="text" name="id" th:field="*{nombre}" placeholder="Introduce el Dni"/>
+      <p class="m-0 p-0">Nombre</p>
+      <input type="text" name="id" th:field="*{nombre}" placeholder="Introduce un Nombre"/>
     </div>
     <div class="fieldBtnSubmit d-flex" style="align-self: end">
       <button type="submit" class="btn btn-info border text-white">GUARDAR</button>
+    </div>
+    <div class="fieldBtnSubmit d-flex" style="align-self: end">
+      <a href="/index" class="btn btn-info border text-white">Volver</a>
     </div>
   </div>
 </form>

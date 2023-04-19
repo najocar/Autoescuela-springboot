@@ -37,7 +37,7 @@ public class MainController {
     @PostMapping("/index/registro")
     public Object saveAlumno(@ModelAttribute("alumno") @Validated Alumno alumno, Model model){
         if (serviceAlumno.existsAlumnoByDni(alumno)) {
-            model.addAttribute("alerta", "ha ocurrido un error");
+            model.addAttribute("alerta", "Error, este DNI ya ha sido registrado");
             return "registroAlumno";
         }
         serviceAlumno.save(alumno);
@@ -48,5 +48,12 @@ public class MainController {
     public ResponseEntity<?> eliminarAlumno(@PathVariable String dni) {
         serviceAlumno.removeAlumnoDni(dni);
         return ResponseEntity.ok().build();
+    }
+
+    @GetMapping("/index/{dni}")
+    public String infoAlumno(Model model, @PathVariable(name = "dni") String dni){
+        Alumno alumno = serviceAlumno.findById(dni);
+        model.addAttribute("alumno", alumno);
+        return "infoAlumno";
     }
 }

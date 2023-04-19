@@ -20,8 +20,9 @@
             <td th:text="${alumno.dni}"></td>
             <td th:text="${alumno.nombre}"></td>
             <td>
-                <button th:attr="onclick=|eliminarAlumno('${alumno.dni}')|">Eliminar</button>
+                <button th:attr="onclick=|eliminarAlumno('${alumno.dni}')|" class="btn btn-primary">Eliminar</button>
             </td>
+            <td><a th:href="@{/index/{dni}(dni=${alumno.dni})}" class="btn btn-primary">Ir a la página</a></td>
         </tr>
         </tbody>
     </table>

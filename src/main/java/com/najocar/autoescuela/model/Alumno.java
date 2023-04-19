@@ -5,6 +5,8 @@ import lombok.Data;
 import lombok.Generated;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 @Data
 @Entity
@@ -16,5 +18,8 @@ public class Alumno implements Serializable {
 
     @Column(name = "nombre", nullable = false)
     private String nombre;
+
+    @ManyToMany(mappedBy = "alumnoes")
+    private List<Clase> clases = new ArrayList<>();
 
 }
