@@ -34,4 +34,8 @@ public class ServiceAlumno implements InterfaceAlumno{
     public void removeAlumnoDni(String dni) {
         repoAlumno.deleteByDni(dni);
     }
+
+    public Boolean existsAlumnoByDni(Alumno alumno){
+        return repoAlumno.existsAlumnoByDni(alumno.getDni());
+    }
 }

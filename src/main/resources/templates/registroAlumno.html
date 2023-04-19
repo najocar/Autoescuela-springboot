@@ -6,6 +6,7 @@
   <title>Registro</title>
 </head>
 <body>
+<h1 th:if="${alerta}" th:text="${alerta}"></h1>
 <div class="mt-5">
 <form th:action="@{/index/registro}" th:object="${alumno}" method="post">
   <div class="container d-flex flex-row justify-content-around align-items-center">

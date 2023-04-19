@@ -11,7 +11,7 @@ import java.io.Serializable;
 @Table(name = "alumnos")
 public class Alumno implements Serializable {
     @Id
-    @Column(name = "dni", nullable = false, unique = true)
+    @Column(name = "dni", nullable = false, unique = true, length = 200)
     private String dni;
 
     @Column(name = "nombre", nullable = false)

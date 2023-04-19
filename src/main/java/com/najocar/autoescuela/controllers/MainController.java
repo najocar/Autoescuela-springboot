@@ -35,8 +35,9 @@ public class MainController {
     }
 
     @PostMapping("/index/registro")
-    public Object saveAlumno(@ModelAttribute("alumno") @Validated Alumno alumno, BindingResult result){
-        if (result.hasErrors()) {
+    public Object saveAlumno(@ModelAttribute("alumno") @Validated Alumno alumno, Model model){
+        if (serviceAlumno.existsAlumnoByDni(alumno)) {
+            model.addAttribute("alerta", "ha ocurrido un error");
             return "registroAlumno";
         }
         serviceAlumno.save(alumno);

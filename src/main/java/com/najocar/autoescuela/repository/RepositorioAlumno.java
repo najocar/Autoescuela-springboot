@@ -15,4 +15,6 @@ public interface RepositorioAlumno extends JpaRepository<Alumno, Long> {
     public Alumno findByDni(String dni);
 
     void deleteByDni(String nombre);
+
+    Boolean existsAlumnoByDni(String dni);
 }
