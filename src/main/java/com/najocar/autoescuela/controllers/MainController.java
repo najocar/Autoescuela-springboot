@@ -2,7 +2,10 @@ package com.najocar.autoescuela.controllers;
 
 
 import com.najocar.autoescuela.model.Alumno;
+import com.najocar.autoescuela.model.Clase;
 import com.najocar.autoescuela.services.ServiceAlumno;
+import com.najocar.autoescuela.services.ServiceClase;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,14 +14,21 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.view.RedirectView;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @Controller
 public class MainController {
+    @Autowired
     private ServiceAlumno serviceAlumno;
 
-    public MainController(ServiceAlumno serviceAlumno){
+    @Autowired
+    private ServiceClase serviceClase;
+
+    public MainController(ServiceAlumno serviceAlumno, ServiceClase serviceClase){
         this.serviceAlumno = serviceAlumno;
+        this.serviceClase = serviceClase;
     }
 
     @GetMapping("/index")
@@ -54,6 +64,34 @@ public class MainController {
     public String infoAlumno(Model model, @PathVariable(name = "dni") String dni){
         Alumno alumno = serviceAlumno.findById(dni);
         model.addAttribute("alumno", alumno);
+
+        /*
+        List<Alumno> alumnos;
+        //alumnos.add(serviceAlumno.findById(dni));
+        Clase clase = new Clase(2, "moto", 20.0);
+        //Clase clase = serviceClase.findById(1); //el número es el id de la clase a la que quieres agregar alumno
+        alumnos = clase.getAlumnoes();
+        alumnos.add(serviceAlumno.findById(dni));
+        clase.setAlumnoes(alumnos);
+        //clase.setAlumnoes(alumnos);
+        serviceClase.save(clase);
+        *
+         */
         return "infoAlumno";
     }
+
+    @GetMapping("/index/clase/{dni}")
+    public Object formRegistroClase(Model model, @PathVariable(name = "dni") String dni){
+        List<Alumno> alumnos;
+        //alumnos.add(serviceAlumno.findById(dni));
+        //Clase clase = new Clase(2, "moto", 20.0);
+        Clase clase = serviceClase.findById(1); //el número es el id de la clase a la que quieres agregar alumno
+        alumnos = clase.getAlumnoes();
+        alumnos.add(serviceAlumno.findById(dni));
+        clase.setAlumnoes(alumnos);
+        //clase.setAlumnoes(alumnos);
+        serviceClase.save(clase);
+        return new RedirectView("/index");
+    }
+
 }

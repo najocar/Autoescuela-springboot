@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div class="mt-5">
+  <form th:action="@{/index/clase/}" th:object="${alumno}" method="post">
+    <div class="container d-flex flex-row justify-content-around align-items-center">
+      <div class="fieldTextName d-flex flex-column text-center m-0">
+        <p class="m-0 p-0">Dni</p>
+        <input type="text" name="id" th:field="*{dni}" placeholder="Introduce el Dni"/>
+      </div>
+      <div class="fieldTextName d-flex flex-column text-center m-0">
+        <p class="m-0 p-0">Nombre</p>
+        <input type="text" name="id" th:field="*{nombre}" placeholder="Introduce un Nombre"/>
+      </div>
+      <div class="fieldBtnSubmit d-flex" style="align-self: end">
+        <button type="submit" class="btn btn-info border text-white">GUARDAR</button>
+      </div>
+      <div class="fieldBtnSubmit d-flex" style="align-self: end">
+        <a href="/index" class="btn btn-info border text-white">Volver</a>
+      </div>
+    </div>
+  </form>
+</div>
+</body>
+</html>

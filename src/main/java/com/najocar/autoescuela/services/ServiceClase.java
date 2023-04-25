@@ -1,5 +1,6 @@
 package com.najocar.autoescuela.services;
 
+import com.najocar.autoescuela.model.Alumno;
 import com.najocar.autoescuela.model.Clase;
 import com.najocar.autoescuela.repository.RepositorioClase;
 import org.springframework.stereotype.Service;
@@ -23,5 +24,9 @@ public class ServiceClase implements InterfaceClase{
     @Override
     public Clase findById(int id) {
         return repoClase.findById(id);
+    }
+
+    public void save(Clase clase){
+        repoClase.save(clase);
     }
 }
