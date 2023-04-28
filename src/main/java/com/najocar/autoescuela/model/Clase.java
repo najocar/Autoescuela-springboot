@@ -100,9 +100,7 @@ public class Clase implements Serializable {
             }
 
             @Override
-            public void clear() {
-
-            }
+            public void clear() {}
 
             @Override
             public Alumno get(int index) {

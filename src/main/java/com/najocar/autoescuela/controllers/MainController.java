@@ -63,35 +63,90 @@ public class MainController {
     @GetMapping("/index/{dni}")
     public String infoAlumno(Model model, @PathVariable(name = "dni") String dni){
         Alumno alumno = serviceAlumno.findById(dni);
-        model.addAttribute("alumno", alumno);
+        List<Clase> clases = serviceClase.getAllClases();
+        List<Clase> aux = serviceClase.getAllClases();
+        if (!clases.isEmpty()){
+            for (Clase clase: aux) {
+                if(!clase.getAlumnoes().contains(serviceAlumno.findById(dni))){
+                    clases.remove(clase);
+                }
+            }
 
-        /*
-        List<Alumno> alumnos;
-        //alumnos.add(serviceAlumno.findById(dni));
-        Clase clase = new Clase(2, "moto", 20.0);
-        //Clase clase = serviceClase.findById(1); //el número es el id de la clase a la que quieres agregar alumno
-        alumnos = clase.getAlumnoes();
-        alumnos.add(serviceAlumno.findById(dni));
-        clase.setAlumnoes(alumnos);
-        //clase.setAlumnoes(alumnos);
-        serviceClase.save(clase);
-        *
-         */
+        }
+        model.addAttribute("alumno", alumno);
+        model.addAttribute("clase", clases);
+        model.addAttribute("clasesBotones", aux);
         return "infoAlumno";
     }
 
+    /*
     @GetMapping("/index/clase/{dni}")
     public Object formRegistroClase(Model model, @PathVariable(name = "dni") String dni){
+        model.addAttribute("dni", dni);
         List<Alumno> alumnos;
-        //alumnos.add(serviceAlumno.findById(dni));
-        //Clase clase = new Clase(2, "moto", 20.0);
         Clase clase = serviceClase.findById(1); //el número es el id de la clase a la que quieres agregar alumno
         alumnos = clase.getAlumnoes();
         alumnos.add(serviceAlumno.findById(dni));
         clase.setAlumnoes(alumnos);
-        //clase.setAlumnoes(alumnos);
         serviceClase.save(clase);
-        return new RedirectView("/index");
+        return "/index/{dni}";
+    }
+
+     */
+
+    /*
+    @PostMapping("/index/{dni}")
+    public Object inscribirEnClase(@PathVariable(name = "dni") String dni, Model model){
+        model.addAttribute("dni", dni);
+        String dniUrl = "1234694p";
+        List<Alumno> alumnos;
+        Clase clase = serviceClase.findById(1); //el número es el id de la clase a la que quieres agregar alumno
+        alumnos = clase.getAlumnoes();
+        alumnos.add(serviceAlumno.findById(dniUrl));
+        clase.setAlumnoes(alumnos);
+        serviceClase.save(clase);
+
+
+        //String dniUrl = model.getAttribute("dni").toString();
+        //String dniUrl = "1234694p";
+        System.out.println(dni);
+        System.out.println(dniUrl);
+        String redirectUrl = String.format("/index/%s", dniUrl);
+        return new RedirectView(redirectUrl);
+    }
+
+     */
+
+
+    @GetMapping("/index/{claseid}/{dni}")//en vez de clase, pasar id de clase
+    public Object registroEnClase(Model model, @PathVariable(name = "dni") String dni, @PathVariable(name = "claseid") int claseid){
+        model.addAttribute("dni", dni);
+        List<Alumno> alumnos;
+        Clase clase = serviceClase.findById(claseid); //el número es el id de la clase a la que quieres agregar alumno
+        if (!clase.getAlumnoes().contains(serviceAlumno.findById(dni))){
+            alumnos = clase.getAlumnoes();
+            alumnos.add(serviceAlumno.findById(dni));
+            clase.setAlumnoes(alumnos);
+            serviceClase.save(clase);
+        }
+
+        return new RedirectView("/index/{dni}");
+    }
+
+    @GetMapping("/index/borrar/{claseid}/{dni}")
+    public Object borrarDeClase(Model model, @PathVariable(name = "dni") String dni, @PathVariable(name = "claseid") int claseid){
+        model.addAttribute("dni", dni);
+        List<Alumno> alumnos;
+        Clase clase = serviceClase.findById(claseid); //el número es el id de la clase a la que quieres agregar alumno
+        if (clase.getAlumnoes().contains(serviceAlumno.findById(dni))){
+            alumnos = clase.getAlumnoes();
+            //alumnos.remove(clase.getAlumnoes().indexOf(serviceAlumno.findById(dni)));
+            alumnos.remove(serviceAlumno.findById(dni));
+            clase.setAlumnoes(alumnos);
+            serviceClase.save(clase);
+        }
+
+        return new RedirectView("/index/{dni}");
     }
 
 }

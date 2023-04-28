@@ -17,8 +17,8 @@
         </thead>
         <tbody>
         <tr th:each="alumno,iter: ${alumnos}">
-            <td th:text="${alumno.dni}"></td>
-            <td th:text="${alumno.nombre}"></td>
+            <td th:text="${alumno.dni}">Cargando...</td>
+            <td th:text="${alumno.nombre}">Cargando...</td>
             <td>
                 <button th:attr="onclick=|eliminarAlumno('${alumno.dni}')|" class="btn btn-primary">Eliminar</button>
             </td>
