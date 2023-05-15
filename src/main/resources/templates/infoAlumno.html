@@ -4,12 +4,16 @@
     <meta charset="UTF-8">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" th:href="@{/style.css}">
     <title th:text="${alumno.dni}"></title>
 </head>
 <body>
 <div class="m-4">
-    <h3 th:text="'Dni: ' + ${alumno.dni}"></h3>
-    <h3 th:text="'Nombre: ' + ${alumno.nombre}"></h3>
+    <h3 th:text="'Dni: ' + ${alumno.dni}">N/A</h3>
+    <h3 th:text="'Nombre: ' + ${alumno.nombre}" id="name">N/A</h3>
+    <input type="text" id="nameField" class="none">
+    <button th:attr="onclick=|editName('${alumno.nombre}')|" id="editButton">Editar</button>
+    <button th:attr="onclick=|save('${alumno.nombre}')|" id="saveButton" class="none">Guardar</button>
     <div class="fieldBtnSubmit d-flex" style="align-self: end">
         <a href="/index" class="btn btn-info border text-white">Volver</a>
     </div>
@@ -58,8 +62,37 @@
         precioTotal = precioTotal + parseInt(preciovalue.innerHTML);
     }
 
-
     precioTotalField.innerText = "Precio total a pagar: " + precioTotal;
+
+    const name = document.getElementById('name');
+    const nameField = document.getElementById('nameField');
+    const editButton = document.getElementById('editButton');
+    const saveButton = document.getElementById('saveButton');
+    let editando = false;
+    const editName = (nombre) => {
+        switch (editando){
+            case false:
+                name.classList.add('none');
+                nameField.classList.remove('none');
+                saveButton.classList.remove('none');
+                nameField.value = nombre;
+                editando = true;
+                editButton.innerText = "Cancelar";
+                break;
+            case true:
+                name.classList.remove('none');
+                nameField.classList.add('none');
+                saveButton.classList.add('none');
+                editando = false;
+                editButton.innerText = "Editar";
+                break;
+        }
+    }
+
+
+    const save = () => {
+
+    }
 </script>
 </body>
 </html>

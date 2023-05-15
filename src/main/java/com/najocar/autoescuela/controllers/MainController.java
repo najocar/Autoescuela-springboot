@@ -17,6 +17,7 @@ import org.springframework.web.servlet.view.RedirectView;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 public class MainController {
@@ -62,12 +63,15 @@ public class MainController {
 
     @GetMapping("/index/{dni}")
     public String infoAlumno(Model model, @PathVariable(name = "dni") String dni){
-        Alumno alumno = serviceAlumno.findById(dni);
+        Optional<Alumno> alumnAux = serviceAlumno.findById(dni);
+        Alumno alumno = alumnAux.orElseThrow(() ->
+                new RuntimeException("El alumno no existe")
+        );
         List<Clase> clases = serviceClase.getAllClases();
         List<Clase> aux = serviceClase.getAllClases();
         if (!clases.isEmpty()){
             for (Clase clase: aux) {
-                if(!clase.getAlumnoes().contains(serviceAlumno.findById(dni))){
+                if(!clase.getAlumnoes().contains(alumno)){
                     clases.remove(clase);
                 }
             }
@@ -121,11 +125,15 @@ public class MainController {
     @GetMapping("/index/{claseid}/{dni}")//en vez de clase, pasar id de clase
     public Object registroEnClase(Model model, @PathVariable(name = "dni") String dni, @PathVariable(name = "claseid") int claseid){
         model.addAttribute("dni", dni);
+        Optional<Alumno> alumnAux = serviceAlumno.findById(dni);
+        Alumno alumno = alumnAux.orElseThrow(() ->
+                new RuntimeException("El alumno no existe")
+        );
         List<Alumno> alumnos;
         Clase clase = serviceClase.findById(claseid); //el número es el id de la clase a la que quieres agregar alumno
-        if (!clase.getAlumnoes().contains(serviceAlumno.findById(dni))){
+        if (!clase.getAlumnoes().contains(alumno)){
             alumnos = clase.getAlumnoes();
-            alumnos.add(serviceAlumno.findById(dni));
+            alumnos.add(alumno);
             clase.setAlumnoes(alumnos);
             serviceClase.save(clase);
         }
@@ -136,12 +144,16 @@ public class MainController {
     @GetMapping("/index/borrar/{claseid}/{dni}")
     public Object borrarDeClase(Model model, @PathVariable(name = "dni") String dni, @PathVariable(name = "claseid") int claseid){
         model.addAttribute("dni", dni);
+        Optional<Alumno> alumnAux = serviceAlumno.findById(dni);
+        Alumno alumno = alumnAux.orElseThrow(() ->
+                new RuntimeException("El alumno no existe")
+        );
         List<Alumno> alumnos;
         Clase clase = serviceClase.findById(claseid); //el número es el id de la clase a la que quieres agregar alumno
-        if (clase.getAlumnoes().contains(serviceAlumno.findById(dni))){
+        if (clase.getAlumnoes().contains(alumno)){
             alumnos = clase.getAlumnoes();
             //alumnos.remove(clase.getAlumnoes().indexOf(serviceAlumno.findById(dni)));
-            alumnos.remove(serviceAlumno.findById(dni));
+            alumnos.remove(alumno);
             clase.setAlumnoes(alumnos);
             serviceClase.save(clase);
         }

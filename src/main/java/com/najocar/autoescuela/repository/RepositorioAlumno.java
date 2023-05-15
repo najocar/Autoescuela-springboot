@@ -5,6 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface RepositorioAlumno extends JpaRepository<Alumno, Long> {
 
@@ -12,7 +13,7 @@ public interface RepositorioAlumno extends JpaRepository<Alumno, Long> {
     public List<Alumno> findAll();
 
     @Query(value = "SELECT * from alumnos where dni = ?1", nativeQuery = true)
-    public Alumno findByDni(String dni);
+    public Optional<Alumno> findByDni(String dni);
 
     void deleteByDni(String nombre);
 
