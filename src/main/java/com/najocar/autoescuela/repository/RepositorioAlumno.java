@@ -3,9 +3,12 @@ package com.najocar.autoescuela.repository;
 import com.najocar.autoescuela.model.Alumno;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
+@Repository
 public interface RepositorioAlumno extends JpaRepository<Alumno, Long> {
 
     @Query(value = "SELECT * from alumnos", nativeQuery = true)
