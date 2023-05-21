@@ -18,11 +18,19 @@
     </div>
 
 
-    <table>
+    <table class="tabla">
+        <thead>
+        <tr>
+            <th>Clase</th>
+            <th>Precio</th>
+        </tr>
+        </thead>
+        <tbody>
         <tr th:each="clase,iter: ${clase}">
             <td th:text="${clase.nombre}"></td>
             <td th:text="${clase.precio}" class="precio"></td>
         </tr>
+        </tbody>
     </table>
 
     <div class="mt-5">
