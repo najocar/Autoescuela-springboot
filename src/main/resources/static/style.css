@@ -1,3 +1,93 @@
 .none {
-    display: none;
+  display: none;
 }
+
+.center {
+  margin: auto;
+  justify-self: center;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.tabla {
+  border-collapse: collapse;
+  margin-bottom: 10px;
+}
+.tabla tr {
+  height: 35px;
+}
+.tabla td, .tabla th {
+  border: 1px solid black;
+  padding: 10px 20px;
+}
+
+.button {
+  font-size: 17px;
+  padding: 5px 0px;
+  border: transparent;
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
+  color: white;
+  border-radius: 4px;
+  text-decoration: none;
+  cursor: pointer;
+  display: inline-block;
+  margin-top: 10px;
+  text-align: center;
+}
+
+.button:hover {
+  background: rgb(2, 0, 36);
+  background: linear-gradient(90deg, rgb(30, 144, 255) 0%, rgb(0, 212, 255) 100%);
+}
+
+.button:active {
+  transform: translate(0em, 0.2em);
+}
+
+input {
+  height: 30px;
+}
+
+.mb-0 {
+  margin-bottom: 0px;
+}
+
+.bg-primary {
+  background-color: #1770e1;
+}
+
+.bg-light-primary {
+  background-color: #4e97fa;
+}
+
+.bg-white {
+  background-color: #ffffff;
+}
+
+.bg-black {
+  background-color: #000000;
+}
+
+.bg-red {
+  background-color: red;
+}
+
+.w-100 {
+  width: 100%;
+}
+
+.w-75 {
+  width: 75%;
+}
+
+.w-50 {
+  width: 50%;
+}
+
+.w-fit {
+  width: fit-content;
+}
+
+/*# sourceMappingURL=style.css.map */
